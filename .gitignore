@@ -1,0 +1,59 @@
+# Cmake files
+build/
+build/*
+*/build/
+*/build/*
+
+# The library release dir
+lib
+lib/*
+*/lib/
+*/lib/*
+
+# The binary dirs
+bin/
+*/bin/
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+
+# Doc files
+doc/html
+doc/doxygen.stamp
+
+# Fortran modules
+modules
+
+# Release script
+release.sh
+tag.sh
