@@ -38,7 +38,7 @@ releases of the <b>urb_tree</b> library:</br>
 
 Release number (tag)  | Date         | Description                                    
 --------------------- | ------------ | -----------------------------------------------
-1.0                   | 08/17/2016   | The initial release of the <b>urb_tree</b> library
+1.0                   | 08/18/2016   | The initial release of the <b>urb_tree</b> library
 
 On the other hand, the **develop** branch contains the latest builds and is
 intended to be used by the developers who are willing to contribute or improve 
@@ -68,7 +68,7 @@ cmake -G"Unix Makefiles" ../
 popd
 ```
 The current version of the <b>urb_tree</b> library had been tested on various Linux 
-workstations with the GNU, Cray and Intel compilers. Nevertheless, if you face issues 
+workstations with the GNU and Intel compilers. Nevertheless, if you face issues 
 with other compilers you are kindly invited to report them.
 Note that if you are using Cray compilers you have to specify where the 
 Fortran compiler is wrapped. For example if you are using `ftn` you have to add:
@@ -78,16 +78,6 @@ mkdir build
 pushd build
 cmake -DCMAKE_Fortran_COMPILER=ftn -G"Unix Makefiles" ../
 popd
-```
-If your installed OpenCL implementation is not found by our `cmake` 
-[script](https://github.com/issamsaid/urb_tree/tree/master/cmake/FindOpenCL.cmake), 
-where we try to look for your implementation in the usual install directories, 
-you can help setting it manually as follows:
-```
-export OPENCL_INCLUDE_DIR="YOUR_OPENCL_HEADERS_PATH"
-export OPENCL_LIBRARY_DIR="YOUR_OPENCL_LIBRARY_PATH"
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OPENCL_LIBRARY_DIR
-export LIBRARY_PATH=$LIBRARY_PATH:$OPENCL_LIBRARY_DIR
 ```
 To build the library you can run the default target which compiles the C/C++ 
 interface only:
@@ -134,15 +124,14 @@ make doc
 popd
 ```
 It is now up to you to read the documentation and check the examples in order 
-to use <b>urb_tree</b> to write your own OpenCL codes for scientific purposes.
+to use <b>urb_tree</b> to write your own codes for scientific purposes.
 
 ## Using the library
 In order to use the <b>urb_tree</b> C/C++ link your code against liburb_tree.a 
-additionally to the OpenCL library (by adding 
-`-lurb_tree -lOpenCL` to your linker options), 
+(by adding `-lurb_tree` to your linker options), 
 however if your code is based on Fortran the 
 latter should linked against both the C/C++ library and the Fortran interface (
-with the help of the options `-lurb_tree_fortran -lurb_tree -lOpenCL`).<br/>
+with the help of the options `-lurb_tree_fortran -lurb_tree`).<br/>
 
 ## Testing
 If you want to work with the latest build, you are invited to fetch from the 
