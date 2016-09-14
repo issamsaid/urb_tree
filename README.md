@@ -70,15 +70,6 @@ popd
 The current version of the <b>urb_tree</b> library had been tested on various Linux 
 workstations with the GNU and Intel compilers. Nevertheless, if you face issues 
 with other compilers you are kindly invited to report them.
-Note that if you are using Cray compilers you have to specify where the 
-Fortran compiler is wrapped. For example if you are using `ftn` you have to add:
-```
-pushd urb_tree
-mkdir build
-pushd build
-cmake -DCMAKE_Fortran_COMPILER=ftn -G"Unix Makefiles" ../
-popd
-```
 To build the library you can run the default target which compiles the C/C++ 
 interface only:
 ```
@@ -89,22 +80,10 @@ popd
 This Makefile target will build the static library `liburb_tree.a` from the C/C++ 
 source files in the [src](https://github.com/issamsaid/urb_tree/tree/master/src)
 subdirectory. 
-Besides, if you would like to build the Fortran interface additionally, 
-you can do so as follows:
-```
-pushd build
-make urb_tree_fortran
-popd
-```
-This target will build another static library `liburb_tree_fortran.a` from the
-Fortran source files present in the 
-[fortran_interface](https://github.com/issamsaid/urb_tree/tree/master/fortran_interface)
-subdirectory.
 In order to install the libraries on the `lib` subdirectory you can run:
 ```
 pushd build
 make install
-make install -C fortran_interface // This is needed due to a cmake bug
 popd
 ```
 You can also classically run the following in order to build only the 
@@ -140,17 +119,13 @@ tests (on top of the [googletest](https://github.com/google/googletest/)
 Framework) to validate the new features. You can check the unit testing 
 directory [here](https://github.com/issamsaid/urb_tree/tree/master/test).
 The testing framework is used to thoroughly test <b>urb_tree</b> in C/C++ 
-([test/src](https://github.com/issamsaid/urb_tree/tree/master/test/src)) and 
-Fortran ([test/fortran](https://github.com/issamsaid/urb_tree/tree/master/test/fortran_interface)). 
+([test/src](https://github.com/issamsaid/urb_tree/tree/master/test/src)). 
 ```
 pushd build
-make build_tests
+make urb_tree_test
 make install -C test // This is needed due to a cmake bug
 popd
 ```
-Alternatively `make urb_tree_test && make install -C test/src` will only build and 
-install the test suit for the C/C++ interface, and `make urb_tree_test_fortran && make install -C test/fortran_interface` will build and install the unit tests for the
-Fortran interface.
 Tests should be written for any new code, and changes should be verified to not 
 break existing tests before they are submitted for review. 
 To perform the tests (which are automatically built when you compile
@@ -158,7 +133,12 @@ the library) you can run:
 ```
 pushd test
 ./bin/urb_tree_test         // for C/C++
-./bin/urb_tree_test_fortran // for Fortran
+popd
+```
+Or simply:
+```
+pushd build
+make test
 popd
 ```
 
@@ -169,12 +149,10 @@ subdirectory which contains some C/C++ and Fortran samples. Those can be built
 and installed as follows:
 ```
 pushd build
-make examples
+make urb_tree_examples
 make install -C examples // This is needed due to a cmake bug
 pupd
 ```
-Alternatively `make c_examples && make install -C examples/src` will only build and 
-install the C/C++ examples, and `make fortran_examples && make install -C examples/fortran_interface` will build and install the Fortran examples.
 The examples binaries can be browsed in the `test/bin` subdirectory.
 
 ## Continuous integration
