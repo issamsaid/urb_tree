@@ -30,7 +30,7 @@
 ## @author Issam SAID
 ## @brief CMake main build script for urb_tree.
 ##
-project (urb_tree_distribution C CXX Fortran)
+project (urb_tree_distribution C CXX)
 cmake_minimum_required (VERSION 2.8)
 
 ## Overwrite the install prefix
@@ -42,7 +42,6 @@ set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 ## Configurable options for how we want to build urb_tree
 option(urb_tree_debug   "Build urb_tree with the debug mode."             OFF)
 option(urb_tree_verbose "Build urb_tree with the verbose mode activated."  ON)
-option(urb_tree_use_tty "Build urb_tree with logging into  the terminal."  ON)
 
 ## Set the build type (DEFAULT is Release)
 if (NOT CMAKE_BUILD_TYPE)
@@ -85,11 +84,8 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
 endif()
 
 if (urb_tree_verbose)
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D__API_VERBOSE")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D__URB_TREE_VERBOSE")
 endif (urb_tree_verbose)
-if (urb_tree_use_tty)
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D__API_LOG_STD")
-endif (urb_tree_use_tty)
 
 ## Skip dependencies between builds and installs
 set(CMAKE_SKIP_INSTALL_ALL_DEPENDENCY TRUE) 
@@ -97,10 +93,8 @@ set(CMAKE_SKIP_INSTALL_ALL_DEPENDENCY TRUE)
 ## Build the urb_tree C/C++ library.
 add_subdirectory(src)
 
-## Build the urb_tree fortran interface.
-add_subdirectory(fortran_interface EXCLUDE_FROM_ALL)
-
-## Build the urb_tree unit testing suit (develop branch only).
+## Build the urb_tree unit testing suit.
+enable_testing()
 add_subdirectory(test EXCLUDE_FROM_ALL)
 
 ## Build the urb_tree examples.
