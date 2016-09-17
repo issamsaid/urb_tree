@@ -204,4 +204,33 @@ namespace {
         urb_tree_delete(&urb, int_dst, int_dst);
     }
 
+    TEST_F(UtilTest, has) {
+        urb_t *urb = &urb_sentinel, *n;
+        int i, T = 6;
+        int *k, *v, tmp;
+        for (i=1; i<=T; ++i) {
+            k = (int*)malloc(sizeof(int));
+            v = (int*)malloc(sizeof(int));
+            *k = i;
+            *v = i;
+            ASSERT_EQ(urb_tree_put(&urb, urb_tree_create(k, v), int_cmp), 
+                      URB_SUCCESS);
+        }
+        URB_TREE_CHECK_INVARIANTS(&urb);
+        tmp = 1;
+        ASSERT_TRUE(urb_tree_has(&urb, &tmp, int_cmp, NULL));
+        tmp = 2;
+        ASSERT_TRUE(urb_tree_has(&urb, &tmp, int_cmp, NULL));
+        tmp = 3;
+        ASSERT_TRUE(urb_tree_has(&urb, &tmp, int_cmp, NULL));
+        tmp = 4;
+        ASSERT_TRUE(urb_tree_has(&urb, &tmp, int_cmp, NULL));
+        tmp = 5;
+        ASSERT_TRUE(urb_tree_has(&urb, &tmp, int_cmp, NULL));
+        tmp = 6;
+        ASSERT_TRUE(urb_tree_has(&urb, &tmp, int_cmp, &n));
+        ASSERT_EQ(6, *(int*)n->value);
+        urb_tree_delete(&urb, int_dst, int_dst);
+    }
+
 }  // namespace

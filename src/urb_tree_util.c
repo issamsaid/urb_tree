@@ -30,8 +30,8 @@
 /// @author Issam SAID
 /// @brief Implement the utilities used to traverse Red-Black trees.
 ///
-#include <urb_tree/sentinel.h>
 #include <urb_tree/util.h>
+#include <urb_tree/sentinel.h>
 #include <urb_tree/guard.h>
 #include <urb_tree/error.h>
 #include <urb_tree/log.h>
@@ -122,29 +122,22 @@ urb_t *urb_tree_prev(urb_t *n) {
     while(prev != NULL &&
           prev != &urb_sentinel &&
           n    == prev->left) {
-          n    = prev;            
-          prev = prev->parent;  
+          n    =  prev;            
+          prev =  prev->parent;  
     }                         
     return prev;              
 }
-/*
 
-#define IMPLEMENT_PREV_RBN(kT, vT)                              \
-    rbn_##kT##_##vT* prev_rbn_##kT##_##vT(rbt_##kT##_##vT *rbt, \
-                                          rbn_##kT##_##vT *n) { \
-        rbn_##kT##_##vT *prev = NULL;                           \
-        if (n->left != rbt->nil)                                \
-            return max_rbt_##kT##_##vT(rbt, n->left);           \
-        prev = n->parent;                                       \
-        while(prev != NULL     &&                               \
-              prev != rbt->nil &&                               \
-              n  == prev->left) {                               \
-            n  = prev;                                          \
-            prev = prev->parent;                                \
-        }                                                       \
-        return prev;                                            \
-    }
-*/
-
+bool urb_tree_has(urb_t **urb, void *value,
+                  int (*compare_value)(void*, void*), urb_t **container) {         
+    urb_t *n = *urb;
+    if (n == &urb_sentinel) return false;                                                 
+    if (compare_value(value, n->value) == 0) {
+        if (container) *container = n;
+        return true;
+    }              
+    return urb_tree_has(&n->left, value, compare_value, container) ||
+           urb_tree_has(&n->right, value, compare_value, container);
+}
 
 CPPGUARD_END();  

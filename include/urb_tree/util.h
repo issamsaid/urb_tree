@@ -42,6 +42,7 @@
 ///      leaves contains the same number of black nodes.
 ///
 #include <stdio.h>
+#include <stdbool.h>
 #include <urb_tree/guard.h>
 #include <urb_tree/types.h>
 
@@ -82,6 +83,12 @@ urb_t *urb_tree_succ(urb_t *n);
 /// @brief Return the predecessor of a given node.
 ///
 urb_t *urb_tree_prev(urb_t *n);
+
+///
+/// @brief Check if the tree has a given value.
+///
+bool urb_tree_has(urb_t **urb, void *value,
+                  int (*compare_value)(void*, void*), urb_t **container);       
 
 CPPGUARD_END();
 
