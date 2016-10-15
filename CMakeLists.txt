@@ -65,22 +65,10 @@ elseif ("${CMAKE_C_COMPILER_ID}" MATCHES "MSVC")
   	# using Visual Studio 
 endif()
 
-if ("${CMAKE_Fortran_COMPILER_ID}"     MATCHES "Cray")
-  	# using Cray Fortran
-elseif ("${CMAKE_Fortran_COMPILER_ID}" MATCHES "GNU")
-	include(${CMAKE_MODULE_PATH}/gnu_fortran.cmake)
-elseif ("${CMAKE_Fortran_COMPILER_ID}" MATCHES "PGI")
-	include(${CMAKE_MODULE_PATH}/pgi_fortran.cmake)
-elseif ("${CMAKE_Fortran_COMPILER_ID}" MATCHES "Intel")
-  	include(${CMAKE_MODULE_PATH}/intel_fortran.cmake)
-elseif ("${CMAKE_Fortran_COMPILER_ID}" MATCHES "MSVC")
-  	# using Visual Studio Fortran
-endif()
-
 if ("${CMAKE_CXX_COMPILER_ID}"     MATCHES "Cray")
   	# using Cray C++
 elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
-	include(${CMAKE_MODULE_PATH}/gnu_cxx.cmake)
+    include(${CMAKE_MODULE_PATH}/gnu_cxx.cmake)
 elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Intel")
     include(${CMAKE_MODULE_PATH}/intel_cxx.cmake)
 elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "PGI")
